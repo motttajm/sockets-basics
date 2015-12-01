@@ -7,6 +7,8 @@ socket.on('connect', function () {
 socket.on('message', function (message) {
 	console.log('New message:');
 	console.log(message.text);
+
+	jQuery('.messages').append('<p>' + message.text +'</p>');	//. denotes targeting the tag by class
 });
 
 // Handles submitting of new message
@@ -20,7 +22,6 @@ $form.on('submit', function (event) {
 		text: $message.val()
 	});
 
-	//erase the contents of the input after emitting the message
-	$message.val('');
+	$message.val('');	//erase the contents of the input after emitting the message
 
 });
