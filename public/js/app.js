@@ -4,13 +4,20 @@ var socket = io();
 
 console.log(nameParameter + ' joined ' + roomParameter);
 
-socket.on('connect', function () { //this is called when the socket is connected to
+jQuery('.room-title').text('Chat Room: ' + roomParameter);	//update chat room title
+
+socket.on('connect', function () { //this is called when the client connects to the server
 	console.log('Connected to socket.io server!');	
+	socket.emit('joinRoom', {		//emit custom event to the server to tell the server which room the user wants to join
+		name: nameParameter,
+		room: roomParameter
+	});
 });
 
 socket.on('message', function (message) { //this is called when a new incoming message is received
 	var momentTimestamp = moment.utc(message.timestamp);
 	var $message = jQuery('.messages');
+	
 	console.log('Received new message from ' + message.name);
 	console.log(message.text);
 
