@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function (socket) {
 	console.log('User connected via socket.io!');
 
-	socket.on('message', function (message) {
+	socket.on('message', function (message) {	//called when server receives a new message
 		console.log('Message received from ' + message.name + ': ' + message.text);
 		
 		message.timestamp = moment().valueOf();
@@ -19,7 +19,7 @@ io.on('connection', function (socket) {
 		//socket.broadcast.emit('message', message);	//sends message to everyone except sender
 	});
 
-	socket.emit('message', {
+	socket.emit('message', {	//called on connection to socket
 		name: 'System',
 		text: 'Welcome to the chat application!',
 		timestamp: moment().valueOf()
