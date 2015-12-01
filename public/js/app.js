@@ -4,7 +4,7 @@ var socket = io();
 
 console.log(nameParameter + ' joined ' + roomParameter);
 
-jQuery('.room-title').text('Chat Room: ' + roomParameter);	//update chat room title
+jQuery('.room-title').text('Welcome to ' + roomParameter + '!');	//update chat room title
 
 socket.on('connect', function () { //this is called when the client connects to the server
 	console.log('Connected to socket.io server!');	
@@ -16,13 +16,16 @@ socket.on('connect', function () { //this is called when the client connects to 
 
 socket.on('message', function (message) { //this is called when a new incoming message is received
 	var momentTimestamp = moment.utc(message.timestamp);
-	var $message = jQuery('.messages');
+	var $messages = jQuery('.messages');
+	var $message = jQuery('<li class="list-group-item"></li>');
 	
 	console.log('Received new message from ' + message.name);
 	console.log(message.text);
 
 	$message.append('<p><strong>' + message.name + ' ' + momentTimestamp.local().format('h:mm:ss a') + '</strong></p>');
 	$message.append('<p>' + message.text + '</p>');
+	$messages.append($message);
+	
 	});
 
 // Handles submitting of new message
