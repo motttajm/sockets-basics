@@ -19,7 +19,7 @@ function sendCurrentUsers(socket) {
 	}
 
 	Object.keys(clientInfo).forEach(function(socketId) { //pulls all keys in the clientInfo object
-		var userInfo = clientInfo[socket.id];
+		var userInfo = clientInfo[socketId];
 		if (info.room === userInfo.room) {
 			users.push(userInfo.name);
 		}
